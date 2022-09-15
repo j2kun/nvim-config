@@ -3,18 +3,20 @@ let g:did_load_filetypes = 0
 
 " Lua modules loaded by require('FOO') are in lua/FOO.lua
 lua << EOF
--- Load all plugins first, then improt order is irrelevant
+-- Load all plugins first
 require('plugins')
+-- Set basic settings like mapleader used by later includes
+require('settings')
 
 require('autocommands')
 require('cmp_config')
 require('gitgutter')
 require('language_server')
 require('mappings')
-require('settings')
 require('snippets')
 require('telescope_config')
 require('treesitter')
+
 EOF
 
 " TODO: see :help api-autocmd
