@@ -6,7 +6,7 @@ lua << EOF
 require('plugins')
 require('settings')
 require('treesitter')
-require('telescope')
+require('telescope_config')
 require('language_server')
 require('gitgutter')
 require('mappings')
