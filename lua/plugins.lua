@@ -31,10 +31,14 @@ Plug 'hrsh7th/cmp-calc'
 Plug 'kdheepak/cmp-latex-symbols'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+
+-- nvim-cmp menu appearance
+Plug 'onsails/lspkind.nvim'
 
 -- vsnip snippets for lots of languages
 Plug 'rafamadriz/friendly-snippets'

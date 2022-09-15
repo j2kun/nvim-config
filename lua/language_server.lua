@@ -1,78 +1,12 @@
--- Configuration for language server support
--- and autocompletion.
-
--- Setup nvim-cmp, which powers autocompletion
-local cmp = require('cmp')
-
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  window = {
-  },
-  completion = {
-    autocomplete = {
-      cmp.TriggerEvent.TextChanged,
-      cmp.TriggerEvent.InsertEnter,
-    },
-  },
-  mapping = {
-    ['<TAB>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-    ['<S-TAB>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<C-j>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true, -- Confirm first option even if not selected
-    }),
-  },
-  sources = cmp.config.sources({
-    { name = 'vsnip' },
-    { name = 'calc' },
-    { name = 'latex_symbols' },
-    {
-      name = 'buffer',
-      option = {
-        -- Enables completion from buffer words in all open buffers, not just
-        -- the current buffer.
-        get_bufnrs = function()
-          return vim.api.nvim_list_bufs()
-        end
-      }
-    },
-  }),
-})
-
--- Use buffer source for `/`
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
+-- Configuration for language server support.
 
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local nvim_lsp = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Custom language server attach handler configures keymappings
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   local opts = { noremap=true, silent=true }
 
   -- Enable completion triggered by <c-x><c-o>
