@@ -51,7 +51,7 @@ nvim_lsp.texlab.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   -- For debugging
-  cmd = {os.getenv("HOME") .. "/texlab/target/release/texlab", "-vvvv", "--log-file=/tmp/texlab.log" },
+  cmd = {"texlab", "-vvvv", "--log-file=/tmp/texlab.log" },
   flags = {
     debounce_text_changes = 150,
   },
