@@ -19,3 +19,8 @@ vim.keymap.set('n', '<leader>s', 'vip:sort u<CR>')
 vim.keymap.set('n', '<leader>U', 'viwU')
 vim.keymap.set('n', '<leader>u', 'viwu')
 
+-- Open any file in the same directory in a vsplit,
+-- but where you can type and auto-complete the filename
+vim.keymap.set('n', '<leader>ev', ':vsplit <C-R>=expand("%:p:h") . "/" <CR>')
+vim.keymap.set('n', '<leader>es', ':split <C-R>=expand("%:p:h") . "/" <CR>')
+vim.keymap.set('n', '<leader>ee', ':edit <C-R>=expand("%:p:h") . "/" <CR>')
