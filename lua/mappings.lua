@@ -45,7 +45,7 @@ vim.keymap.set('n', '<leader>ee', ':edit <C-R>=expand("%:p:h") . "/" <CR>')
 vim.keymap.set('n', '<leader>o', ':SymbolsOutline<CR>')
 
 
--- navigate to bazel build target for current file
+-- navigate to build target for current file
 vim.keymap.set('n', '<leader>eb', function()
   -- expand("%:p:h") gets the current filepath
   local buildfile = vim.fn.expand("%:p:h") .. "/BUILD"

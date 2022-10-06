@@ -81,7 +81,7 @@ Plug 'folke/which-key.nvim'
 
 -- On first usage, run
 -- :Copilot setup
-Plug 'github/copilot.vim'
+-- Plug 'github/copilot.vim'
 
 vim.call('plug#end')
 
