@@ -14,7 +14,10 @@ local on_attach = function(_, bufnr)
 
   -- set keymappings for interacting with the LSP.
   -- They use Telescope so that the results show up in a nice fuzzy-finder popup
-  buf_set_keymap('n', '<leader>=b', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+  -- buf_set_keymap('n', '<leader>=b', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  -- Google only
+  buf_set_keymap('n', '<leader>=b', '<cmd>FormatCode<CR>', opts)
   buf_set_keymap('n', '<leader>kD', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
   buf_set_keymap('n', '<leader>ka', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>kd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', opts)
@@ -40,8 +43,10 @@ nvim_lsp.pylsp.setup {
     pylsp = {
       plugins = {
         autopep8 = {enabled = false},
-        yapf = {enabled = false},
-        black = {enabed = true},
+        -- only for google
+        yapf = {enabled = true, based_on_style="google", indent_width=2},
+        black = {enabed = false},
+        pycodestyle = {enabled = true, indentSize=2, maxLineLength=80},
       },
     },
   },
