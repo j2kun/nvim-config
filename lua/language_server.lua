@@ -2,7 +2,7 @@
 
 -- Setup lspconfig.
 local nvim_lsp = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Custom language server attach handler configures keymappings
 local on_attach = function(_, bufnr)
