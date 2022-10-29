@@ -35,7 +35,9 @@ end
 nvim_lsp.pylsp.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = {os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp", "-vvvv", "--log-file=/tmp/pylsp.log" },
+  cmd = {os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp"},
+  -- For debugging
+  -- cmd = {os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp", "--log-file=/tmp/pylsp.log" },
   settings = {
     pylsp = {
       plugins = {
@@ -50,8 +52,9 @@ nvim_lsp.pylsp.setup {
 nvim_lsp.texlab.setup {
   on_attach = on_attach,
   capabilities = capabilities,
+  cmd = {"texlab"},
   -- For debugging
-  cmd = {"texlab", "-vvvv", "--log-file=/tmp/texlab.log" },
+  -- cmd = {"texlab", "-vvvv", "--log-file=/tmp/texlab.log" },
   flags = {
     debounce_text_changes = 150,
   },
