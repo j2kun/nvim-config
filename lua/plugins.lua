@@ -9,7 +9,9 @@ Plug 'lervag/vimtex'
 
 -- Set up treesitter (see treesitter.lua)
 Plug('nvim-treesitter/nvim-treesitter', {['do']=':TSUpdate'})
+-- Plugins for treesitter
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 
 Plug 'mechatroner/rainbow_csv'
 Plug 'overcache/NeoSolarized'
