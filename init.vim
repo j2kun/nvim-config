@@ -36,6 +36,11 @@ autocmd CursorHold  <buffer> silent! lua vim.lsp.buf.document_highlight()
 autocmd CursorHoldI <buffer> silent! lua vim.lsp.buf.document_highlight()
 autocmd CursorMoved <buffer> silent! lua vim.lsp.buf.clear_references()
 
+" Configure copilot mapping C-H to accept suggestion
+imap <silent><script><expr> <C-H> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+
+
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
