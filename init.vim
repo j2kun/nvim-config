@@ -32,9 +32,9 @@ nnoremap <leader>t :NERDTreeToggle %<CR>
 nnoremap <C-t> :NERDTreeToggle %<CR>
 
 " Highlight LSP matches for variable names
-autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+autocmd CursorHold  <buffer> silent! lua vim.lsp.buf.document_highlight()
+autocmd CursorHoldI <buffer> silent! lua vim.lsp.buf.document_highlight()
+autocmd CursorMoved <buffer> silent! lua vim.lsp.buf.clear_references()
 
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
