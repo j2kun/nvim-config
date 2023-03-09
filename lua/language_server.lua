@@ -1,5 +1,4 @@
 -- Configuration for language server support.
-
 -- Setup lspconfig.
 local nvim_lsp = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -23,6 +22,7 @@ local on_attach = function(_, bufnr)
   buf_set_keymap('n', '<leader>kr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', opts)
   buf_set_keymap('n', '<leader>ks', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>kt', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)
+  buf_set_keymap('n', '<leader>kK', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
   -- Telescope LSP mappings for fuzzy finder
   buf_set_keymap('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', opts)
@@ -68,15 +68,20 @@ nvim_lsp.texlab.setup {
   }
 }
 
-nvim_lsp.rls.setup {
+nvim_lsp.rust_analyzer.setup {
   on_attach = on_attach,
   capabilities = capabilities,
+  -- WORKSPACE to support rust in google3 (when there is no Cargo.toml, like in
+  -- writing a binary in experimental)
+  root_dir = nvim_lsp.util.root_pattern('Cargo.toml', 'WORKSPACE'),
   flags = {
     debounce_text_changes = 150,
   },
   settings = {
-    rust = {
-      clippy_preference = "on",
+    ["rust-analyzer"] = {
+      procMacro = {
+        enable = true
+      },
     },
   }
 }
