@@ -13,7 +13,7 @@ local on_attach = function(_, bufnr)
 
   -- set keymappings for interacting with the LSP.
   -- They use Telescope so that the results show up in a nice fuzzy-finder popup
-  buf_set_keymap('n', '<leader>=b', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<leader>=b', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
   buf_set_keymap('n', '<leader>kD', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
   buf_set_keymap('n', '<leader>ka', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>kd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', opts)
