@@ -24,3 +24,6 @@ vim.keymap.set('n', '<leader>u', 'viwu')
 vim.keymap.set('n', '<leader>ev', ':vsplit <C-R>=expand("%:p:h") . "/" <CR>')
 vim.keymap.set('n', '<leader>es', ':split <C-R>=expand("%:p:h") . "/" <CR>')
 vim.keymap.set('n', '<leader>ee', ':edit <C-R>=expand("%:p:h") . "/" <CR>')
+
+-- Toggle code outline
+vim.keymap.set('n', '<leader>o', ':SymbolsOutline<CR>')
