@@ -6,7 +6,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Custom language server attach handler configures keymappings
 local on_attach = function(_, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap = true, silent = true }
 
   -- Enable completion triggered by <c-x><c-o>
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -35,7 +35,7 @@ end
 nvim_lsp.pylsp.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = {os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp"},
+  cmd = { os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp" },
   -- For debugging
   -- cmd = {os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp", "--log-file=/tmp/pylsp.log" },
   settings = {
@@ -43,7 +43,7 @@ nvim_lsp.pylsp.setup {
       plugins = {
         autopep8 = {enabled = false},
         yapf = {enabled = false},
-        black = {enabed = true},
+	black = {enabed = true},
       },
     },
   },
@@ -52,12 +52,9 @@ nvim_lsp.pylsp.setup {
 nvim_lsp.texlab.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = {"texlab"},
+  cmd = { "texlab" },
   -- For debugging
   -- cmd = {"texlab", "-vvvv", "--log-file=/tmp/texlab.log" },
-  flags = {
-    debounce_text_changes = 150,
-  },
   settings = {
     texlab = {
       chktex = {
@@ -74,9 +71,6 @@ nvim_lsp.rust_analyzer.setup {
   -- WORKSPACE to support rust in google3 (when there is no Cargo.toml, like in
   -- writing a binary in experimental)
   root_dir = nvim_lsp.util.root_pattern('Cargo.toml', 'WORKSPACE'),
-  flags = {
-    debounce_text_changes = 150,
-  },
   settings = {
     ["rust-analyzer"] = {
       procMacro = {
@@ -91,8 +85,10 @@ local lua_ls_root_path = vim.fn.expand('~/.local/lua-language-server')
 if vim.fn.isdirectory(lua_ls_root_path) == 1 then
   local lua_ls_binary_path = lua_ls_root_path .. "/bin/lua-language-server"
 
-  require'lspconfig'.lua_ls.setup {
-    cmd = {lua_ls_binary_path, "-E", lua_ls_root_path .. "/main.lua"},
+  require 'lspconfig'.lua_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { lua_ls_binary_path, "-E", lua_ls_root_path .. "/main.lua" },
     settings = {
       Lua = {
         runtime = {
@@ -101,7 +97,7 @@ if vim.fn.isdirectory(lua_ls_root_path) == 1 then
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
-          globals = {'vim'},
+          globals = { 'vim' },
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
@@ -115,7 +111,26 @@ if vim.fn.isdirectory(lua_ls_root_path) == 1 then
       },
     },
   }
+end
 
+-- For LSP servers that need no special configuration
+-- except for the capabilities attachment: just check
+-- for the existence of a binary and load the LSP.
+-- key = lspconfig name, value = binary name
+local configlessLSPs = {
+  clangd = "clangd",
+  mlir_lsp_server = "mlir-lsp-server",
+  tblgen_lsp_server = "tblgen-lsp-server",
+}
+
+for lspconfig_name, lsp_binary in pairs(configlessLSPs)
+do
+  if vim.fn.executable(lsp_binary) == 1 then
+    require('lspconfig')[lspconfig_name].setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  end
 end
 
 -- Show diagnostics in the buffer
@@ -137,4 +152,3 @@ vim.cmd [[
   sign define DiagnosticSignInfo text= texthl=LspDiagnosticsSignInformation linehl= numhl=LspDiagnosticsLineNrInformation
   sign define DiagnosticSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsLineNrHint
 ]]
-
