@@ -64,4 +64,5 @@ vim.call('plug#end')
 
 -- Plugins that require no special config,
 -- but must have their setup called to function.
-require'nvim-rooter'.setup()
+require('nvim-rooter').setup()
+require('symbols-outline').setup()
