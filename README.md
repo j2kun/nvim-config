@@ -21,7 +21,14 @@ or pylsp, because of this line in `init.vim`:
 let g:python3_host_prog=$HOME."/.config/nvim/venv/bin/python3"
 ```
 
+Install the tree sitter CLI
+
+```
+cargo install tree-sitter-cli
+```
+
+
 Optionally install [sumneko](https://github.com/sumneko/lua-language-server)
 in `~/.local/lua-language-server` (todo to automate this installation)
 
-Then open neovim and run `:PlugInstall`
+Then open neovim and run `:PlugInstall` and `:TSInstall all`
