@@ -11,7 +11,7 @@ vim.opt.softtabstop = 2  -- number of spaces in tab when editing
 vim.opt.tabstop = 2      -- number of visual spaces per TAB
 
 -- Misc UI config
-vim.cmd("colorscheme NeoSolarized")
+vim.cmd("colorscheme tokyonight")
 vim.opt.background = "dark"
 vim.opt.clipboard = "unnamed"  -- use system clipboard
 vim.opt.cursorline = true      -- highlight current line

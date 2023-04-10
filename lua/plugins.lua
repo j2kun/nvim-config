@@ -2,13 +2,15 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', vim.fn.stdpath("data") .. '/plugged')
 
+Plug('folke/tokyonight.nvim', { ['branch'] = 'main' })
+
 Plug 'airblade/vim-gitgutter'
 Plug 'notjedi/nvim-rooter.lua'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'lervag/vimtex'
 
 -- Set up treesitter (see treesitter.lua)
-Plug('nvim-treesitter/nvim-treesitter', {['do']=':TSUpdate'})
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 -- Plugins for treesitter
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-context'
