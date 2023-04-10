@@ -3,6 +3,7 @@ lua << EOF
 -- Load all plugins first
 require('plugins')
 -- Set basic settings like mapleader used by later includes
+require('theme')
 require('settings')
 
 require('autocommands')

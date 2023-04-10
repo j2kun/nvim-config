@@ -11,11 +11,7 @@ vim.opt.softtabstop = 2  -- number of spaces in tab when editing
 vim.opt.tabstop = 2      -- number of visual spaces per TAB
 
 -- Misc UI config
-vim.cmd("colorscheme tokyonight")
-vim.opt.background = "dark"
 vim.opt.clipboard = "unnamed"  -- use system clipboard
-vim.opt.cursorline = true      -- highlight current line
-vim.opt.hlsearch = false       -- don't highlight searches after done
 vim.opt.number = true          -- enable line numbers in the left margin
 vim.opt.relativenumber = true  -- enable relative line numbers in the left margin
 vim.opt.splitright = true      -- vsplits open on the right by default
