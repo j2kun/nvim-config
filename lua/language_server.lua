@@ -43,7 +43,7 @@ nvim_lsp.pylsp.setup {
       plugins = {
         autopep8 = {enabled = false},
         yapf = {enabled = false},
-	black = {enabed = true},
+        black = {enabled = true},
       },
     },
   },
