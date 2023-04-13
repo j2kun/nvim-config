@@ -4,8 +4,11 @@ vim.call('plug#begin', vim.fn.stdpath("data") .. '/plugged')
 
 Plug('folke/tokyonight.nvim', { ['branch'] = 'main' })
 
+-- testing out new rooter plugin
+-- Plug 'notjedi/nvim-rooter.lua'
+Plug 'ahmedkhalf/project.nvim'
+
 Plug 'airblade/vim-gitgutter'
-Plug 'notjedi/nvim-rooter.lua'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'lervag/vimtex'
 
@@ -66,5 +69,10 @@ vim.call('plug#end')
 
 -- Plugins that require no special config,
 -- but must have their setup called to function.
-require('nvim-rooter').setup()
+-- require('nvim-rooter').setup()
 require('symbols-outline').setup()
+
+require("project_nvim").setup {
+  patterns = { ".git", ".hg", "Makefile", "package.json", "venv", "WORKSPACE" }
+}
+
