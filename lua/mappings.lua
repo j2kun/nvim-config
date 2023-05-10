@@ -96,3 +96,7 @@ vim.keymap.set('i', '<c-t>', function()
   vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { datetime })
 end,
   { noremap = true })
+
+-- TransformCode
+-- In visual mode
+vim.keymap.set('x', 'T', ':`<`>TransformCode ')

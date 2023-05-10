@@ -69,6 +69,10 @@ Plug 'simrat39/symbols-outline.nvim'
 -- Swapping text objects using treesitter nodes
 Plug 'mizlan/iswap.nvim'
 
+-- Experimental Google AI code transform
+-- Adds :TransformCode command
+Plug 'sso://user/vvvv/ai.nvim'
+
 -- Experimental changes to UI for cmdline and notifications
 Plug 'MunifTanjim/nui.nvim'
 Plug 'rcarriga/nvim-notify'
@@ -107,8 +111,8 @@ require("noice").setup({
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
     override = {
-	    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-	    ["vim.lsp.util.stylize_markdown"] = true,
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
       ["cmp.entry.get_documentation"] = true,
     },
   },
