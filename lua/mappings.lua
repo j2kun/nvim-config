@@ -28,6 +28,7 @@ vim.keymap.set('n', '<leader>ee', ':edit <C-R>=expand("%:p:h") . "/" <CR>')
 -- Toggle code outline
 vim.keymap.set('n', '<leader>o', ':SymbolsOutline<CR>')
 
+
 -- navigate to bazel build target for current file
 vim.keymap.set('n', '<leader>eb', function()
   -- expand("%:p:h") gets the current filepath

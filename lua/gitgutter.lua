@@ -4,7 +4,7 @@
 vim.keymap.set('n', '<Leader>ha', '<Plug>(GitGutterStageHunk)')
 vim.keymap.set('n', '<Leader>hr', '<Plug>(GitGutterUndoHunk)')
 
-vim.opt.signcolumn = 'number' 
+vim.opt.signcolumn = 'number'
 vim.cmd('highlight clear SignColumn')
 
 vim.g.gitgutter_realtime = 1
