@@ -100,3 +100,31 @@ end,
 -- TransformCode
 -- In visual mode
 vim.keymap.set('x', 'T', ':`<`>TransformCode ')
+
+
+local function build_include_guard()
+  -- project relative filepath
+  local abs_path = vim.fn.expand("%")
+  local rel_path = vim.fn.fnamemodify(abs_path, ":~:.")
+
+  -- screaming case
+  local upper = string.upper(rel_path)
+  -- underscore separated
+  local underscored = string.gsub(upper, "[./]", "_")
+  -- trailing underscore
+  return underscored .. "_"
+end
+
+
+-- Fix include guards according to HEIR style guide
+vim.keymap.set('n', '<leader>fi', function()
+  local buf = vim.api.nvim_get_current_buf()
+  local include_guard = build_include_guard()
+  local ifndef = "#ifndef " .. include_guard
+  local define = "#define " .. include_guard
+  local endif = "#endif  // " .. include_guard
+
+  vim.api.nvim_buf_set_lines(buf, 0, 2, false, {ifndef, define})
+  vim.api.nvim_buf_set_lines(buf, -2, -1, false, {endif})
+end, {noremap = true})
+
