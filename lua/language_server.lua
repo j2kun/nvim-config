@@ -47,7 +47,7 @@ nvim_lsp.pylsp.setup {
         autopep8 = {enabled = false},
         -- only for google
         yapf = {enabled = true, based_on_style="google", indent_width=2},
-        black = {enabled = false},
+        pylsp_black = {enabled = false},
         pycodestyle = {enabled = true, indentSize=2, maxLineLength=80},
       },
     },
@@ -123,7 +123,8 @@ end
 -- for the existence of a binary and load the LSP.
 -- key = lspconfig name, value = binary name
 local configlessLSPs = {
-  clangd = "clangd",
+  -- clangd is great for MLIR, bad for Google internal stuff
+  -- clangd = "clangd",
   mlir_lsp_server = "mlir-lsp-server",
   tblgen_lsp_server = "tblgen-lsp-server",
   yamlls = "yaml-language-server",
