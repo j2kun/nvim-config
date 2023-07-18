@@ -128,3 +128,13 @@ vim.keymap.set('n', '<leader>fi', function()
   vim.api.nvim_buf_set_lines(buf, -2, -1, false, {endif})
 end, {noremap = true})
 
+
+-- insert the iso date, 2023-07-18T10:36:11-07:00
+-- :r !date --iso-8601=seconds , but smaerter
+vim.keymap.set('i', '<c-t>', function()
+  -- expand("%:p:h") gets the current filepath
+  local datetime = os.date("%Y-%m-%dT%H:%M:%S%z")
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { datetime })
+end,
+{noremap = true})
