@@ -38,5 +38,42 @@ vim.keymap.set('n', '<leader>eb', function()
   vim.cmd("normal /" .. target .. vim.api.nvim_replace_termcodes("<CR>", true, true, true))
   vim.cmd("normal zz")
 end,
-{noremap = true})
+  { noremap = true })
 
+
+local function build_include_guard()
+  -- project relative filepath
+  local abs_path = vim.fn.expand("%")
+  local rel_path = vim.fn.fnamemodify(abs_path, ":~:.")
+
+  -- screaming case
+  local upper = string.upper(rel_path)
+  -- underscore separated
+  local underscored = string.gsub(upper, "[./]", "_")
+  -- trailing underscore
+  return underscored .. "_"
+end
+
+
+-- Fix include guards according to HEIR style guide
+vim.keymap.set('n', '<leader>fi', function()
+  local buf = vim.api.nvim_get_current_buf()
+  local include_guard = build_include_guard()
+  local ifndef = "#ifndef " .. include_guard
+  local define = "#define " .. include_guard
+  local endif = "#endif  // " .. include_guard
+
+  vim.api.nvim_buf_set_lines(buf, 0, 2, false, { ifndef, define })
+  vim.api.nvim_buf_set_lines(buf, -2, -1, false, { endif })
+end, { noremap = true })
+
+
+-- insert the iso date, 2023-07-18T10:36:11-07:00
+-- :r !date --iso-8601=seconds , but smaerter
+vim.keymap.set('i', '<c-t>', function()
+  -- expand("%:p:h") gets the current filepath
+  local datetime = os.date("%Y-%m-%dT%H:%M:%S%z")
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { datetime })
+end,
+  { noremap = true })
