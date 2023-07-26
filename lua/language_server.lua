@@ -125,11 +125,15 @@ local configlessLSPs = {
 
 for lspconfig_name, lsp_binary in pairs(configlessLSPs)
 do
-  if vim.fn.executable(lsp_binary) == 1 then
-    require('lspconfig')[lspconfig_name].setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    }
+  -- Skip clangd if in google3
+  local skip = lspconfig_name == "clangd" and string.find(vim.loop.cwd(), "google3")
+  if not skip then
+    if vim.fn.executable(lsp_binary) == 1 then
+      require('lspconfig')[lspconfig_name].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      }
+    end
   end
 end
 
