@@ -124,7 +124,7 @@ end
 -- key = lspconfig name, value = binary name
 local configlessLSPs = {
   -- clangd is great for MLIR, bad for Google internal stuff
-  -- clangd = "clangd",
+  clangd = "clangd",
   mlir_lsp_server = "mlir-lsp-server",
   tblgen_lsp_server = "tblgen-lsp-server",
   yamlls = "yaml-language-server",
