@@ -44,6 +44,9 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
+-- Formatting for file types and languages that don't have LSPs
+Plug 'sbdchd/neoformat'
+
 -- nvim-cmp menu appearance
 Plug 'onsails/lspkind.nvim'
 

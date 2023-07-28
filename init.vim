@@ -14,6 +14,7 @@ require('mappings')
 require('snippets')
 require('telescope_config')
 require('treesitter')
+require('formatters')
 
 EOF
 
