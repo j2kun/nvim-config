@@ -38,9 +38,6 @@ autocmd CursorMoved <buffer> silent! lua vim.lsp.buf.clear_references()
 imap <silent><script><expr> <C-H> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 
-" Can't figure out how to get the ftplugin to recognize this new filetype
-au BufRead,BufNewFile *.mlir :set filetype=mlir
-
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
