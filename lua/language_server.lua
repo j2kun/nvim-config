@@ -129,7 +129,7 @@ do
   local skip = lspconfig_name == "clangd" and string.find(vim.loop.cwd(), "google3")
   if not skip then
     if vim.fn.executable(lsp_binary) == 1 then
-      require('lspconfig')[lspconfig_name].setup {
+      nvim_lsp[lspconfig_name].setup {
         on_attach = on_attach,
         capabilities = capabilities,
       }
