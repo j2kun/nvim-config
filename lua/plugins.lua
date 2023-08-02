@@ -86,7 +86,11 @@ require('symbols-outline').setup()
 require('inc_rename').setup()
 
 require("project_nvim").setup {
-  patterns = { ".git", ".hg", "Makefile", "package.json", "venv", "WORKSPACE" }
+  show_hidden = true,
+  silent_chdir = false,
+  patterns = { ".git", ".hg", "Makefile", "package.json", "venv", "WORKSPACE" },
+  -- For whatever reason, texlab has bad root finding behavior
+  ignore_lsp = { "texlab" },
 }
 
 -- if this works out, move it to a settings or UI.lua file
