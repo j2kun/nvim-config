@@ -34,6 +34,7 @@ require('nvim-treesitter.configs').setup {
     "python",
     "r",
     "racket",
+    "regex",
     "ruby",
     "rust",
     "sql",
