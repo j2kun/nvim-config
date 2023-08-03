@@ -89,7 +89,7 @@ require('inc_rename').setup()
 
 require("project_nvim").setup {
   show_hidden = true,
-  silent_chdir = false,
+  silent_chdir = true,  -- for debugging, this will tell you the cwd it set
   patterns = { ".git", ".hg", "Makefile", "package.json", "venv", "WORKSPACE" },
   -- For whatever reason, texlab has bad root finding behavior
   ignore_lsp = { "texlab" },
