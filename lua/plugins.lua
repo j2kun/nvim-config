@@ -59,6 +59,8 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 -- Allows Telescope to use neovim builtins, like `vim.lsp.buf.code_action()`
 Plug 'nvim-telescope/telescope-ui-select.nvim'
+-- Set up custom mappings from a file to "related" files
+Plug 'otavioschwanck/telescope-alternate.nvim'
 
 -- Code outline
 Plug 'simrat39/symbols-outline.nvim'

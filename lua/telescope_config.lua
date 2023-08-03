@@ -2,12 +2,68 @@
 
 local tsc = require("telescope")
 
+-- Provide custom filepath mappings that navigate to related files
+-- from the current buffer's filepath
+require('telescope-alternate').setup({
+  mappings = {
+    {
+      pattern = '**/(.*).h',
+      targets = {
+        { template = '**/[1].cc',       label = 'cc',       enable_new = false },
+        { template = '**/[1].cpp',      label = 'cpp',      enable_new = false },
+        { template = '**/[1]Test.cc',   label = 'cc Test',  enable_new = false },
+        { template = '**/[1]Test.cpp',  label = 'cpp Test', enable_new = false },
+        { template = '**/[1]_test.cc',  label = 'cc test',  enable_new = false },
+        { template = '**/[1]_test.cpp', label = 'cpp test', enable_new = false },
+      }
+    },
+    {
+      pattern = '**/(.*).cc',
+      targets = {
+        { template = '**/[1].h',        label = 'header',   enable_new = false },
+        { template = '**/[1].cpp',      label = 'cpp',      enable_new = false },
+        { template = '**/[1]Test.cc',   label = 'cc Test',  enable_new = false },
+        { template = '**/[1]Test.cpp',  label = 'cpp Test', enable_new = false },
+        { template = '**/[1]_test.cc',  label = 'cc test',  enable_new = false },
+        { template = '**/[1]_test.cpp', label = 'cpp test', enable_new = false },
+      }
+    },
+    {
+      pattern = '**/(.*).cpp',
+      targets = {
+        { template = '**/[1].h',        label = 'header', enable_new = false },
+        { template = '**/[1].cc',       label = 'cc',     enable_new = false },
+        { template = '**/[1]Test.cc',   label = 'test',   enable_new = false },
+        { template = '**/[1]Test.cpp',  label = 'test',   enable_new = false },
+        { template = '**/[1]_test.cc',  label = 'test',   enable_new = false },
+        { template = '**/[1]_test.cpp', label = 'test',   enable_new = false },
+      }
+    },
+    {
+      pattern = '(.*)Test.(.*)',
+      targets = {
+        { template = '**/[1].[2]', label = 'implementation', enable_new = false },
+      }
+    },
+    {
+      pattern = '(.*)_test.(.*)',
+      targets = {
+        { template = '**/[1].[2]', label = 'implementation', enable_new = false },
+      }
+    },
+  },
+  open_only_one_with = 'vertical_split',
+  -- custom fns that can be used in mappings above to transform names
+  transformers = {},
+})
+tsc.load_extension('telescope-alternate')
+
 -- Setup telescope-ui-select, which allows telescope to use nvim builtins
 -- like `lua vim.lsp.buf.code_action()`, which was removed from Telescope.
 tsc.load_extension("ui-select")
 
 -- For project.nvim, enables :Telescope projects for cross-project navigation.
-require('telescope').load_extension('projects')
+tsc.load_extension('projects')
 
 -- For less common options, list all legal Telescope commands to choose from
 vim.keymap.set('n', '<leader>fl', ':Telescope builtin<cr>')
@@ -24,3 +80,6 @@ vim.keymap.set('n', '<leader>fj', ':Telescope jump_list<cr>')
 vim.keymap.set('n', '<leader>fo', ':Telescope oldfiles<cr>')
 vim.keymap.set('n', '<leader>fm', ':Telescope marks<cr>')
 vim.keymap.set('n', '<leader>fp', ':Telescope projects<cr>')
+
+-- see lua/mappings.lua for other `<leader>e*` mappings
+vim.keymap.set('n', '<leader>er', ':Telescope telescope-alternate alternate_file<cr>')
