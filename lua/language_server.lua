@@ -11,11 +11,15 @@ local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- set keymappings for interacting with the LSP.
-  -- They use Telescope so that the results show up in a nice fuzzy-finder popup
-  -- buf_set_keymap('n', '<leader>=b', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
-  -- For Google only, override formatter since LSP support is poor
-  buf_set_keymap('n', '<leader>=b', '<cmd>FormatCode<CR>', opts)
+  local in_google3 = string.find(vim.loop.cwd(), "google3")
+  if in_google3 then
+    -- For Google only, override formatter since LSP support is poor
+    buf_set_keymap('n', '<leader>=b', '<cmd>FormatCode<CR>', opts)
+  else
+    buf_set_keymap('n', '<leader>=b', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+  end
+
+  -- Use Telescope so that the results show up in a nice fuzzy-finder popup
   buf_set_keymap('n', '<leader>kD', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
   buf_set_keymap('n', '<leader>ka', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>kd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', opts)
