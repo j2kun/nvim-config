@@ -15,6 +15,7 @@ require('telescope-alternate').setup({
         { template = '**/[1]Test.cpp',  label = 'cpp Test', enable_new = false },
         { template = '**/[1]_test.cc',  label = 'cc test',  enable_new = false },
         { template = '**/[1]_test.cpp', label = 'cpp test', enable_new = false },
+        { template = '**/[1].td',       label = 'tablegen', enable_new = false },
       }
     },
     {
@@ -26,17 +27,27 @@ require('telescope-alternate').setup({
         { template = '**/[1]Test.cpp',  label = 'cpp Test', enable_new = false },
         { template = '**/[1]_test.cc',  label = 'cc test',  enable_new = false },
         { template = '**/[1]_test.cpp', label = 'cpp test', enable_new = false },
+        { template = '**/[1].td',       label = 'tablegen', enable_new = false },
       }
     },
     {
       pattern = '**/(.*).cpp',
       targets = {
-        { template = '**/[1].h',        label = 'header', enable_new = false },
-        { template = '**/[1].cc',       label = 'cc',     enable_new = false },
-        { template = '**/[1]Test.cc',   label = 'test',   enable_new = false },
-        { template = '**/[1]Test.cpp',  label = 'test',   enable_new = false },
-        { template = '**/[1]_test.cc',  label = 'test',   enable_new = false },
-        { template = '**/[1]_test.cpp', label = 'test',   enable_new = false },
+        { template = '**/[1].h',        label = 'header',   enable_new = false },
+        { template = '**/[1].cc',       label = 'cc',       enable_new = false },
+        { template = '**/[1]Test.cc',   label = 'test',     enable_new = false },
+        { template = '**/[1]Test.cpp',  label = 'test',     enable_new = false },
+        { template = '**/[1]_test.cc',  label = 'test',     enable_new = false },
+        { template = '**/[1]_test.cpp', label = 'test',     enable_new = false },
+        { template = '**/[1].td',       label = 'tablegen', enable_new = false },
+      }
+    },
+    {
+      pattern = '**/(.*).td',
+      targets = {
+        { template = '**/[1].h',        label = 'header',   enable_new = false },
+        { template = '**/[1].cc',       label = 'cc',       enable_new = false },
+        { template = '**/[1].cpp',      label = 'cpp',      enable_new = false },
       }
     },
     {

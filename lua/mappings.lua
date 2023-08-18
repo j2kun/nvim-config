@@ -21,6 +21,8 @@ vim.keymap.set('n', '<leader>u', 'viwu')
 
 -- Open any file in the same directory in a vsplit,
 -- but where you can type and auto-complete the filename
+-- also works for creating new files, whereas the corresponding
+-- telescope command would not :(
 vim.keymap.set('n', '<leader>ev', ':vsplit <C-R>=expand("%:p:h") . "/" <CR>')
 vim.keymap.set('n', '<leader>es', ':split <C-R>=expand("%:p:h") . "/" <CR>')
 vim.keymap.set('n', '<leader>ee', ':edit <C-R>=expand("%:p:h") . "/" <CR>')
