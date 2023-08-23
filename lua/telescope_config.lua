@@ -69,6 +69,10 @@ require('telescope-alternate').setup({
 })
 tsc.load_extension('telescope-alternate')
 
+require('telescope').load_extension('textcase')
+vim.api.nvim_set_keymap('n', '<leader>cc', '<cmd>TextCaseOpenTelescope<CR>', { desc = "Telescope" })
+vim.api.nvim_set_keymap('v', '<leader>cc', '<cmd>TextCaseOpenTelescope<CR>', { desc = "Telescope" })
+
 -- Setup telescope-ui-select, which allows telescope to use nvim builtins
 -- like `lua vim.lsp.buf.code_action()`, which was removed from Telescope.
 tsc.load_extension("ui-select")

@@ -29,6 +29,9 @@ Plug 'wellle/targets.vim'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 
+-- conver between various programming cases
+Plug 'johmsalas/text-case.nvim'
+
 Plug 'neovim/nvim-lspconfig'
 
 -- autocompletion, with spearate plugins for each source
@@ -86,6 +89,7 @@ vim.call('plug#end')
 -- require('nvim-rooter').setup()
 require('symbols-outline').setup()
 require('inc_rename').setup()
+require('textcase').setup()
 
 require("project_nvim").setup {
   show_hidden = true,

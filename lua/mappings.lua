@@ -15,9 +15,23 @@ vim.keymap.set('n', '<leader>gq', 'vipgq')
 -- Sort and dedupe current paragraph by line
 vim.keymap.set('n', '<leader>s', 'vip:sort u<CR>')
 
--- make word upper/lower case
-vim.keymap.set('n', '<leader>U', 'viwU')
-vim.keymap.set('n', '<leader>u', 'viwu')
+-- from johmsalas/text-case.nvim
+vim.keymap.set('n', '<leader>cC', ":lua require('textcase').current_word('to_pascal_case')<CR>")
+vim.keymap.set('n', '<leader>ca', ":lua require('textcase').current_word('to_camel_case')<CR>")
+vim.keymap.set('n', '<leader>c-', ":lua require('textcase').current_word('to_dash_case')<CR>")
+vim.keymap.set('n', '<leader>c.', ":lua require('textcase').current_word('to_dot_case')<CR>")
+vim.keymap.set('n', '<leader>c/', ":lua require('textcase').current_word('to_path_case')<CR>")
+vim.keymap.set('n', '<leader>c_', ":lua require('textcase').current_word('to_snake_case')<CR>")
+vim.keymap.set('n', '<leader>ct', ":lua require('textcase').current_word('to_title_case')<CR>")
+vim.keymap.set('n', '<leader>cu', ":lua require('textcase').current_word('to_constant_case')<CR>")
+vim.keymap.set('v', '<leader>cC', ":lua require('textcase').visual('to_pascal_case')<CR>")
+vim.keymap.set('v', '<leader>ca', ":lua require('textcase').visual('to_camel_case')<CR>")
+vim.keymap.set('v', '<leader>c-', ":lua require('textcase').visual('to_dash_case')<CR>")
+vim.keymap.set('v', '<leader>c.', ":lua require('textcase').visual('to_dot_case')<CR>")
+vim.keymap.set('v', '<leader>c/', ":lua require('textcase').visual('to_path_case')<CR>")
+vim.keymap.set('v', '<leader>c_', ":lua require('textcase').visual('to_snake_case')<CR>")
+vim.keymap.set('v', '<leader>ct', ":lua require('textcase').visual('to_title_case')<CR>")
+vim.keymap.set('v', '<leader>cu', ":lua require('textcase').visual('to_constant_case')<CR>")
 
 -- Open any file in the same directory in a vsplit,
 -- but where you can type and auto-complete the filename
