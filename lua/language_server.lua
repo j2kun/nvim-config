@@ -121,6 +121,7 @@ local configlessLSPs = {
   clangd = "clangd",
   mlir_lsp_server = "mlir-lsp-server",
   tblgen_lsp_server = "tblgen-lsp-server",
+  yamlls = "yaml-language-server",
 }
 
 for lspconfig_name, lsp_binary in pairs(configlessLSPs)

@@ -44,6 +44,9 @@ The [lua_ls](https://github.com/sumneko/lua-language-server) is particularly
 strange and custom. Clone/build it at `~/.local/lua-language-server` and the
 config will find the binary.
 
+The [yaml-language-server](https://www.npmjs.com/package/yaml-language-server)
+is installed via `sudo npm install -g yaml-language-server`.
+
 ### Nerd fonts
 
 Optionally install [nerd fonts](https://www.nerdfonts.com/) for your system for
