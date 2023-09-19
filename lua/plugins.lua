@@ -26,8 +26,6 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
 
 -- conver between various programming cases
 Plug 'johmsalas/text-case.nvim'
