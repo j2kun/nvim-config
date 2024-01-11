@@ -44,6 +44,8 @@ nvim_lsp.pylsp.setup {
         autopep8 = { enabled = false },
         yapf = { enabled = false },
         black = { enabled = true },
+        pycodestyle = { enabled = false },
+        flake8 = { enabled = false },
       },
     },
   },
@@ -122,6 +124,7 @@ local configlessLSPs = {
   mlir_lsp_server = "mlir-lsp-server",
   tblgen_lsp_server = "tblgen-lsp-server",
   yamlls = "yaml-language-server",
+  gopls = "gopls",
 }
 
 for lspconfig_name, lsp_binary in pairs(configlessLSPs)

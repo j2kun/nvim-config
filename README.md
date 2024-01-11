@@ -47,6 +47,11 @@ config will find the binary.
 The [yaml-language-server](https://www.npmjs.com/package/yaml-language-server)
 is installed via `sudo npm install -g yaml-language-server`.
 
+The golang language server [gopls](https://github.com/golang/tools/tree/master/gopls)
+is installed via `go install golang.org/x/tools/gopls@latest`. This may require
+`$PATH` to include a custom go binary dir configuration (e.g.,
+`/usr/local/go/bin` or `$HOME/go/bin`).
+
 ### Nerd fonts
 
 Optionally install [nerd fonts](https://www.nerdfonts.com/) for your system for
