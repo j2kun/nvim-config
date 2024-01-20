@@ -1,4 +1,4 @@
 augroup AutoFormat
   autocmd!
-  autocmd BufWritePre * undojoin | Neoformat buildifier
+  autocmd BufWritePre Neoformat buildifier
 augroup END
