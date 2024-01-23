@@ -9,6 +9,15 @@ Debian/Ubuntu.
 This is an incomplete list. Add more as I find things break when I install on a
 new machine.
 
+## Install vim-plug
+
+See https://github.com/junegunn/vim-plug for latest instructions.
+
+```bash
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+
 ### nvim-specific virtualenv
 
 ```
