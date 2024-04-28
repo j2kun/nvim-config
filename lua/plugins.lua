@@ -96,7 +96,7 @@ require('which-key').setup()
 
 require("project_nvim").setup {
   show_hidden = true,
-  silent_chdir = true,  -- for debugging, this will tell you the cwd it set
+  silent_chdir = true, -- for debugging, this will tell you the cwd it set
   patterns = { ".git", ".hg", "Makefile", "package.json", "venv", "WORKSPACE" },
   -- For whatever reason, texlab has bad root finding behavior
   ignore_lsp = { "texlab" },
@@ -127,5 +127,16 @@ require("noice").setup({
     view_warn = "mini", -- view for warnings
     view_history = "messages", -- view for :messages
     view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+  },
+  routes = {
+    {
+      view = "mini",
+      filter = {
+        event = "msg_showmode"
+      },
+      any = {
+        { find = "recording" },
+      },
+    },
   },
 })
