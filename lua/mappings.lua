@@ -94,3 +94,55 @@ vim.keymap.set('i', '<c-t>', function()
   vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { datetime })
 end,
   { noremap = true })
+
+
+-- From https://buttondown.email/hillelwayne/archive/keep-perfecting-your-config/
+-- use `vim.b.local_task` to store a task to run in the current buffer
+-- Run `:LoadLocal foo` to set the task to `foo`, then `gxl` to run it
+function LoadLocal(local_task)
+  vim.b.local_task = local_task
+end
+
+function RunLocalHelper()
+  local filepath = vim.api.nvim_buf_get_name(0)
+  local cmd = vim.b.local_task .. " " .. filepath
+  local handle = io.popen(cmd, "r")
+  -- Read the output of the command into a string
+  if handle == nil then
+    print("Error running local task")
+    return nil
+  end
+  local result = handle:read("*a")
+  handle:close()
+  return result
+end
+
+function RunLocal()
+  local result = RunLocalHelper()
+  if result == nil then
+    return nil
+  end
+  print(result)  -- prints to messages
+end
+
+function RunAndReplaceLocal()
+  local result = RunLocalHelper()
+  if result == nil then
+    return nil
+  end
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, { result })
+end
+
+function RunAndNewTabLocal()
+  local result = RunLocalHelper()
+  if result == nil then
+    return nil
+  end
+  vim.cmd [[tabnew]]
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, { result })
+end
+
+vim.cmd [[command! -nargs=1 LoadLocal call v:lua.LoadLocal(<f-args>)]]
+vim.keymap.set('n', '<leader>xr', RunLocal, {desc="Run vim.b.local_task"})
+vim.keymap.set('n', '<leader>xe', RunAndReplaceLocal, {desc="Run vim.b.local_task and replace current buffer contents with result"})
+vim.keymap.set('n', '<leader>xt', RunAndNewTabLocal, {desc="Run vim.b.local_task and create a new tab with results"})
