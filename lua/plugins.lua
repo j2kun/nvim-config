@@ -27,6 +27,10 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
+-- Manage and invoke text filters from a library
+-- Filter programs are stored in ~/.config/nvim/text
+Plug 'skywind3000/vim-text-process'
+
 -- conver between various programming cases
 Plug 'johmsalas/text-case.nvim'
 
