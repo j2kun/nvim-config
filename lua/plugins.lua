@@ -94,7 +94,7 @@ vim.call('plug#end')
 -- but must have their setup called to function.
 -- require('nvim-rooter').setup()
 require('symbols-outline').setup()
-require('inc_rename').setup()
+require('inc_rename').setup({})
 require('textcase').setup()
 require('which-key').setup()
 
