@@ -24,8 +24,17 @@ Plug 'preservim/nerdtree'
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
+
+-- Surround text objects with characters
+-- sa : add
+-- sd : delete
+-- sr : replace
+-- sf : find/nav to
+-- follow with `f` for function call insertion, `t` for html tag,
+-- opening bracket implies space, closing has no space.
+-- visual block mode cases not well supported
+Plug 'echasnovski/mini.surround'
 
 -- Manage and invoke text filters from a library
 -- Filter programs are stored in ~/.config/nvim/text
@@ -97,6 +106,8 @@ require('symbols-outline').setup()
 require('inc_rename').setup({})
 require('textcase').setup()
 require('which-key').setup()
+
+require('mini.surround').setup({respect_selection_type = false})
 
 require("project_nvim").setup {
   show_hidden = true,
