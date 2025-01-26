@@ -1,7 +1,7 @@
 # Setting up Neovim on a new machine
 
-Ensure python3.10 is installed, this also may require installing pip/ensurepip
-for python3.10, something like `sudo apt install python3.10-venv` on
+Ensure python3.12 is installed, this also may require installing pip/ensurepip
+for python3.12, something like `sudo apt install python3.12-venv` on
 Debian/Ubuntu.
 
 ## Install instructions
@@ -21,7 +21,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 ### nvim-specific virtualenv
 
 ```
-python3.10 -m venv venv
+python3.12 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
