@@ -121,7 +121,7 @@ end
 -- key = lspconfig name, value = binary name
 local configlessLSPs = {
   clangd = "clangd",
-  mlir_lsp_server = "mlir-lsp-server",
+  mlir_lsp_server = "heir-lsp",
   tblgen_lsp_server = "tblgen-lsp-server",
   yamlls = "yaml-language-server",
   gopls = "gopls",
@@ -132,10 +132,15 @@ do
   -- Skip clangd if in google3
   local skip = lspconfig_name == "clangd" and string.find(vim.loop.cwd(), "google3")
   if not skip then
+    -- fall back to mlir-lsp-server if heir-lsp is not available
+    if lspconfig_name == "mlir_lsp_server" and vim.fn.executable("heir-lsp") == 0 then
+      lsp_binary = "mlir-lsp-server"
+    end
     if vim.fn.executable(lsp_binary) == 1 then
       nvim_lsp[lspconfig_name].setup {
         on_attach = on_attach,
         capabilities = capabilities,
+        cmd = { lsp_binary },
       }
     end
   end
