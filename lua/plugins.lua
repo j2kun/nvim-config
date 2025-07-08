@@ -49,6 +49,7 @@ Plug 'sbdchd/neoformat'
 
 -- nvim-cmp menu appearance
 Plug 'onsails/lspkind.nvim'
+Plug 'folke/trouble.nvim'
 
 -- vsnip snippets for lots of languages
 Plug 'rafamadriz/friendly-snippets'
@@ -78,10 +79,6 @@ Plug 'rcarriga/nvim-notify'
 Plug 'folke/noice.nvim'
 Plug 'smjonas/inc-rename.nvim'
 
--- displays a popup with possible key bindings of the command you started
--- typing
-Plug 'folke/which-key.nvim'
-
 -- On first usage, run
 -- :Copilot setup
 -- Plug 'github/copilot.vim'
@@ -95,7 +92,6 @@ vim.call('plug#end')
 require('symbols-outline').setup()
 require('inc_rename').setup()
 require('textcase').setup()
-require('which-key').setup()
 
 require("project_nvim").setup {
   show_hidden = true,

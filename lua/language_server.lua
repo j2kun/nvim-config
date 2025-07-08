@@ -2,6 +2,7 @@
 -- Setup lspconfig.
 local nvim_lsp = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lsp_configs = require("lspconfig.configs")
 
 -- Custom language server attach handler configures keymappings
 local on_attach = function(_, bufnr)
@@ -17,6 +18,10 @@ local on_attach = function(_, bufnr)
     buf_set_keymap('n', '<leader>=b', '<cmd>FormatCode<CR>', opts)
   else
     buf_set_keymap('n', '<leader>=b', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+  end
+
+  if vim.lsp.formatexpr then
+    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr")
   end
 
   -- Use Telescope so that the results show up in a nice fuzzy-finder popup
@@ -48,11 +53,11 @@ nvim_lsp.pylsp.setup {
     pylsp = {
       plugins = {
         flake8 = { enabled = false },
-        autopep8 = {enabled = false},
+        autopep8 = { enabled = false },
         -- only for google
-        yapf = {enabled = true, based_on_style="google", indent_width=2},
-        pylsp_black = {enabled = false},
-        pycodestyle = {enabled = true, indentSize=2, maxLineLength=80},
+        yapf = { enabled = true, based_on_style = "google", indent_width = 2 },
+        pylsp_black = { enabled = false },
+        pycodestyle = { enabled = true, indentSize = 2, maxLineLength = 80 },
       },
     },
   },
@@ -89,6 +94,20 @@ nvim_lsp.rust_analyzer.setup {
   }
 }
 
+lsp_configs.ciderlsp = {
+  default_config = {
+    cmd = { '/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp', '--noforward_sync_responses' },
+    filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textpb", "go", "python", "bzl", "typescript" },
+    offset_encoding = 'utf-8',
+    root_dir = nvim_lsp.util.root_pattern('.citc'),
+    settings = {},
+  }
+}
+lsp_configs.ciderlsp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
 -- Only try to configure lua lsp if it is installed in the right location
 local lua_ls_root_path = vim.fn.expand('~/.local/lua-language-server')
 if vim.fn.isdirectory(lua_ls_root_path) == 1 then
@@ -121,6 +140,8 @@ if vim.fn.isdirectory(lua_ls_root_path) == 1 then
     },
   }
 end
+
+
 
 -- For LSP servers that need no special configuration
 -- except for the capabilities attachment: just check
