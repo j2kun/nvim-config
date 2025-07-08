@@ -109,6 +109,10 @@ vim.keymap.set('i', '<c-t>', function()
 end,
   { noremap = true })
 
--- TransformCode
--- In visual mode
-vim.keymap.set('x', 'T', ':`<`>TransformCode ')
+local agent = require("cider-agent")
+vim.keymap.set({ "n" }, "<leader>ac", function()
+  vim.ui.input({ prompt = "Cider Chat: " .. agent.refs() .. "\n" }, agent.chat)
+end, { desc = "[A]I [C]hat" })
+vim.keymap.set({ "n" }, "<leader>ae", function()
+  vim.ui.input({ prompt = "Cider Edit: " .. agent.refs() .. "\n" }, agent.simple_coding)
+end, { desc = "[A]I [E]dit" })

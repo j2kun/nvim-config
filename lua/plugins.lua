@@ -69,10 +69,6 @@ Plug 'simrat39/symbols-outline.nvim'
 -- Swapping text objects using treesitter nodes
 Plug 'mizlan/iswap.nvim'
 
--- Experimental Google AI code transform
--- Adds :TransformCode command
-Plug 'sso://user/vvvv/ai.nvim'
-
 -- Experimental changes to UI for cmdline and notifications
 Plug 'MunifTanjim/nui.nvim'
 Plug 'rcarriga/nvim-notify'
@@ -82,6 +78,8 @@ Plug 'smjonas/inc-rename.nvim'
 -- On first usage, run
 -- :Copilot setup
 -- Plug 'github/copilot.vim'
+Plug 'MeanderingProgrammer/render-markdown.nvim'
+Plug 'sso://user/idk/cider-agent.nvim'
 
 vim.call('plug#end')
 
@@ -92,10 +90,21 @@ vim.call('plug#end')
 require('symbols-outline').setup()
 require('inc_rename').setup()
 require('textcase').setup()
+require('render-markdown').setup({
+  overrides = {
+    buftype = {
+      nofile = {
+        anti_conceal = { enabled = false },
+        code = { left_pad = 0, right_pad = 0 },
+        debounce = 0,
+      },
+    },
+  },
+})
 
 require("project_nvim").setup {
   show_hidden = true,
-  silent_chdir = true,  -- for debugging, this will tell you the cwd it set
+  silent_chdir = true, -- for debugging, this will tell you the cwd it set
   patterns = { ".git", ".hg", "Makefile", "package.json", "venv", "WORKSPACE" },
   -- For whatever reason, texlab has bad root finding behavior
   ignore_lsp = { "texlab" },
@@ -113,18 +122,21 @@ require("noice").setup({
   },
   -- you can enable a preset for easier configuration
   presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
-    command_palette = true, -- position the cmdline and popupmenu together
+    bottom_search = true,         -- use a classic bottom cmdline for search
+    command_palette = true,       -- position the cmdline and popupmenu together
     long_message_to_split = true, -- long messages will be sent to a split
-    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false, -- add a border to hover docs and signature help
+    inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false,       -- add a border to hover docs and signature help
   },
   messages = {
-    enabled = true, -- enables the Noice messages UI
-    view = "mini", -- default view for messages
-    view_error = "mini", -- view for errors
-    view_warn = "mini", -- view for warnings
-    view_history = "messages", -- view for :messages
+    enabled = true,              -- enables the Noice messages UI
+    view = "mini",               -- default view for messages
+    view_error = "mini",         -- view for errors
+    view_warn = "mini",          -- view for warnings
+    view_history = "messages",   -- view for :messages
     view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
   },
 })
+
+local agent = require("cider-agent")
+agent.setup({ server_name = "ciderlsp" })
