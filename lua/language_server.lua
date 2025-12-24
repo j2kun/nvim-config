@@ -1,6 +1,5 @@
 -- Configuration for language server support.
 -- Setup lspconfig.
-local nvim_lsp = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Custom language server attach handler configures keymappings
@@ -32,7 +31,7 @@ local on_attach = function(_, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 end
 
-nvim_lsp.pylsp.setup {
+vim.lsp.config('pylsp', {
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = { os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp" },
@@ -49,9 +48,9 @@ nvim_lsp.pylsp.setup {
       },
     },
   },
-}
+})
 
-nvim_lsp.texlab.setup {
+vim.lsp.config('texlab', {
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = { "texlab" },
@@ -65,14 +64,14 @@ nvim_lsp.texlab.setup {
       }
     },
   }
-}
+})
 
-nvim_lsp.rust_analyzer.setup {
+vim.lsp.config('rust_analyzer', {
   on_attach = on_attach,
   capabilities = capabilities,
   -- WORKSPACE to support rust in google3 (when there is no Cargo.toml, like in
   -- writing a binary in experimental)
-  root_dir = nvim_lsp.util.root_pattern('Cargo.toml', 'WORKSPACE'),
+  root_dir = require('lspconfig.util').root_pattern('Cargo.toml', 'WORKSPACE'),
   settings = {
     ["rust-analyzer"] = {
       procMacro = {
@@ -80,14 +79,14 @@ nvim_lsp.rust_analyzer.setup {
       },
     },
   }
-}
+})
 
 -- Only try to configure lua lsp if it is installed in the right location
 local lua_ls_root_path = vim.fn.expand('~/.local/lua-language-server')
 if vim.fn.isdirectory(lua_ls_root_path) == 1 then
   local lua_ls_binary_path = lua_ls_root_path .. "/bin/lua-language-server"
 
-  require 'lspconfig'.lua_ls.setup {
+  vim.lsp.config('lua_ls', {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { lua_ls_binary_path, "-E", lua_ls_root_path .. "/main.lua" },
@@ -112,7 +111,7 @@ if vim.fn.isdirectory(lua_ls_root_path) == 1 then
         },
       },
     },
-  }
+  })
 end
 
 -- For LSP servers that need no special configuration
@@ -137,11 +136,11 @@ do
       lsp_binary = "mlir-lsp-server"
     end
     if vim.fn.executable(lsp_binary) == 1 then
-      nvim_lsp[lspconfig_name].setup {
+      vim.lsp.config(lspconfig_name, {
         on_attach = on_attach,
         capabilities = capabilities,
         cmd = { lsp_binary },
-      }
+      })
     end
   end
 end

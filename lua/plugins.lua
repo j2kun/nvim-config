@@ -13,9 +13,9 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'lervag/vimtex'
 
 -- Set up treesitter (see treesitter.lua)
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate', ['branch'] = 'main' })
 -- Plugins for treesitter
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug('nvim-treesitter/nvim-treesitter-textobjects', { ['branch'] = 'main' })
 Plug 'nvim-treesitter/nvim-treesitter-context'
 
 Plug 'mechatroner/rainbow_csv'
@@ -80,12 +80,13 @@ Plug 'otavioschwanck/telescope-alternate.nvim'
 Plug 'simrat39/symbols-outline.nvim'
 
 -- Swapping text objects using treesitter nodes
-Plug 'mizlan/iswap.nvim'
+-- Blocked on https://github.com/mizlan/iswap.nvim/issues/92
+-- Plug 'mizlan/iswap.nvim'
 
 -- Experimental changes to UI for cmdline and notifications
 Plug 'MunifTanjim/nui.nvim'
 Plug 'rcarriga/nvim-notify'
-Plug 'folke/noice.nvim'
+-- Plug 'folke/noice.nvim'
 Plug 'smjonas/inc-rename.nvim'
 
 -- displays a popup with possible key bindings of the command you started
@@ -118,40 +119,40 @@ require("project_nvim").setup {
 }
 
 -- if this works out, move it to a settings or UI.lua file
-require("noice").setup({
-  lsp = {
-    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-    override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true,
-    },
-  },
-  -- you can enable a preset for easier configuration
-  presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
-    command_palette = true, -- position the cmdline and popupmenu together
-    long_message_to_split = true, -- long messages will be sent to a split
-    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false, -- add a border to hover docs and signature help
-  },
-  messages = {
-    enabled = true, -- enables the Noice messages UI
-    view = "mini", -- default view for messages
-    view_error = "mini", -- view for errors
-    view_warn = "mini", -- view for warnings
-    view_history = "messages", -- view for :messages
-    view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-  },
-  routes = {
-    {
-      view = "mini",
-      filter = {
-        event = "msg_showmode"
-      },
-      any = {
-        { find = "recording" },
-      },
-    },
-  },
-})
+--require("noice").setup({
+--  lsp = {
+--    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+--    override = {
+--      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+--      ["vim.lsp.util.stylize_markdown"] = true,
+--      ["cmp.entry.get_documentation"] = true,
+--    },
+--  },
+--  -- you can enable a preset for easier configuration
+--  presets = {
+--    bottom_search = true, -- use a classic bottom cmdline for search
+--    command_palette = true, -- position the cmdline and popupmenu together
+--    long_message_to_split = true, -- long messages will be sent to a split
+--    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+--    lsp_doc_border = false, -- add a border to hover docs and signature help
+--  },
+--  messages = {
+--    enabled = true, -- enables the Noice messages UI
+--    view = "mini", -- default view for messages
+--    view_error = "mini", -- view for errors
+--    view_warn = "mini", -- view for warnings
+--    view_history = "messages", -- view for :messages
+--    view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+--  },
+--  routes = {
+--    {
+--      view = "mini",
+--      filter = {
+--        event = "msg_showmode"
+--      },
+--      any = {
+--        { find = "recording" },
+--      },
+--    },
+--  },
+--})

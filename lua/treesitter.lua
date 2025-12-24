@@ -4,7 +4,7 @@
 --   1. Faster and more accurate syntax highlighting
 --   2. Smart-select (incremental selection based on AST nodes)
 
-require('nvim-treesitter.configs').setup {
+require('nvim-treesitter').setup {
   -- A list of parser names, or "all"
   ensure_installed = {
     "awk",
