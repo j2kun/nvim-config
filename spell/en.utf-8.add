@@ -84,6 +84,7 @@ unpredicted
 recommender
 algorithmically
 preprocessed
+<<<<<<< Updated upstream
 LLM
 LLMs
 APIs
@@ -179,3 +180,26 @@ unrepresentable
 footguns
 Feldman
 Feldman's
+||||||| Stash base
+=======
+liminal
+elementwise
+RLWE
+ciphertexts
+FHE
+underemphasized
+homomorphic
+SIMD
+ciphertext
+Shoup
+Halevi
+cleartext
+plaintext
+unpadded
+postprocessing
+vectorized
+plaintexts
+kerfs
+discretized
+Optimality
+>>>>>>> Stashed changes
