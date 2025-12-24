@@ -1,42 +1,44 @@
 -- Configuration for language server support.
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- vim.lsp.set_log_level("INFO")
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Custom language server attach handler configures keymappings
-local on_attach = function(_, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local opts = { noremap = true, silent = true }
+local bufnr = 0  -- current buffer
+local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+local opts = { noremap = true, silent = true }
 
-  -- Enable completion triggered by <c-x><c-o>
-  -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+-- set keymappings for interacting with the LSP.
+-- They use Telescope so that the results show up in a nice fuzzy-finder popup
+buf_set_keymap('n', '<leader>=b', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+buf_set_keymap('n', '<leader>kD', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
+buf_set_keymap('n', '<leader>ka', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+buf_set_keymap('n', '<leader>kd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', opts)
+buf_set_keymap('n', '<leader>ki', '<cmd>lua require("telescope.builtin").lsp_implementations()<CR>', opts)
+buf_set_keymap('n', '<leader>kn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+buf_set_keymap('n', '<leader>kr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', opts)
+buf_set_keymap('n', '<leader>ks', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+buf_set_keymap('n', '<leader>kt', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)
+buf_set_keymap('n', '<leader>kK', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+buf_set_keymap('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', opts)
+buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 
-  -- set keymappings for interacting with the LSP.
-  -- They use Telescope so that the results show up in a nice fuzzy-finder popup
-  buf_set_keymap('n', '<leader>=b', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
-  buf_set_keymap('n', '<leader>kD', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '<leader>ka', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<leader>kd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', opts)
-  buf_set_keymap('n', '<leader>ki', '<cmd>lua require("telescope.builtin").lsp_implementations()<CR>', opts)
-  buf_set_keymap('n', '<leader>kn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<leader>kr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', opts)
-  buf_set_keymap('n', '<leader>ks', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<leader>kt', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)
-  buf_set_keymap('n', '<leader>kK', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-
-  -- Telescope LSP mappings for fuzzy finder
-  buf_set_keymap('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', opts)
-
-  -- next diagnostics, like gitgutter ]c
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+-- config-less LSPs
+local skip = string.find(vim.loop.cwd(), "google3")
+if not skip then
+  vim.lsp.enable('clangd')
+  vim.lsp.enable('pyright')
+  vim.lsp.enable('gopls')
+  vim.lsp.enable('yamlls')
+  vim.lsp.enable('tblgen_lsp_server')
 end
 
+vim.lsp.enable('pylsp')
 vim.lsp.config('pylsp', {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  cmd = { os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp" },
+  -- capabilities = capabilities,
+  -- cmd = { os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp" },
   -- For debugging
-  -- cmd = {os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp", "--log-file=/tmp/pylsp.log" },
+  cmd = {os.getenv("HOME") .. "/.config/nvim/venv/bin/pylsp", "--log-file=/tmp/pylsp.log" },
   settings = {
     pylsp = {
       plugins = {
@@ -50,9 +52,9 @@ vim.lsp.config('pylsp', {
   },
 })
 
+vim.lsp.enable('texlab')
 vim.lsp.config('texlab', {
-  on_attach = on_attach,
-  capabilities = capabilities,
+  -- capabilities = capabilities,
   cmd = { "texlab" },
   -- For debugging
   -- cmd = {"texlab", "-vvvv", "--log-file=/tmp/texlab.log" },
@@ -66,9 +68,9 @@ vim.lsp.config('texlab', {
   }
 })
 
+vim.lsp.enable('rust_analyzer')
 vim.lsp.config('rust_analyzer', {
-  on_attach = on_attach,
-  capabilities = capabilities,
+  -- capabilities = capabilities,
   -- WORKSPACE to support rust in google3 (when there is no Cargo.toml, like in
   -- writing a binary in experimental)
   root_dir = require('lspconfig.util').root_pattern('Cargo.toml', 'WORKSPACE'),
@@ -86,9 +88,9 @@ local lua_ls_root_path = vim.fn.expand('~/.local/lua-language-server')
 if vim.fn.isdirectory(lua_ls_root_path) == 1 then
   local lua_ls_binary_path = lua_ls_root_path .. "/bin/lua-language-server"
 
+  vim.lsp.enable('lua_ls')
   vim.lsp.config('lua_ls', {
-    on_attach = on_attach,
-    capabilities = capabilities,
+    -- capabilities = capabilities,
     cmd = { lua_ls_binary_path, "-E", lua_ls_root_path .. "/main.lua" },
     settings = {
       Lua = {
@@ -114,36 +116,16 @@ if vim.fn.isdirectory(lua_ls_root_path) == 1 then
   })
 end
 
--- For LSP servers that need no special configuration
--- except for the capabilities attachment: just check
--- for the existence of a binary and load the LSP.
--- key = lspconfig name, value = binary name
-local configlessLSPs = {
-  clangd = "clangd",
-  mlir_lsp_server = "heir-lsp",
-  tblgen_lsp_server = "tblgen-lsp-server",
-  yamlls = "yaml-language-server",
-  gopls = "gopls",
-}
-
-for lspconfig_name, lsp_binary in pairs(configlessLSPs)
-do
-  -- Skip clangd if in google3
-  local skip = lspconfig_name == "clangd" and string.find(vim.loop.cwd(), "google3")
-  if not skip then
-    -- fall back to mlir-lsp-server if heir-lsp is not available
-    if lspconfig_name == "mlir_lsp_server" and vim.fn.executable("heir-lsp") == 0 then
-      lsp_binary = "mlir-lsp-server"
-    end
-    if vim.fn.executable(lsp_binary) == 1 then
-      vim.lsp.config(lspconfig_name, {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { lsp_binary },
-      })
-    end
-  end
+vim.lsp.enable('mlir_lsp_server')
+local mlir_lsp_binary = "heir-lsp"
+if vim.fn.executable("heir-lsp") == 0 then
+  mlir_lsp_binary = "mlir-lsp-server"
 end
+vim.lsp.config('mlir_lsp_server', {
+  -- on_attach = on_attach,
+  -- capabilities = capabilities,
+  cmd = { mlir_lsp_binary },
+})
 
 -- Show diagnostics in the buffer
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
