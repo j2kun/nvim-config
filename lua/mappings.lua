@@ -1,3 +1,19 @@
+-- Mappings for interacting with the LSP.
+-- They use Telescope so that the results show up in a nice fuzzy-finder popup
+vim.keymap.set('n', '<leader>=b', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
+vim.keymap.set('n', '<leader>kD', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>')
+vim.keymap.set('n', '<leader>ka', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('n', '<leader>kd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>')
+vim.keymap.set('n', '<leader>ki', '<cmd>lua require("telescope.builtin").lsp_implementations()<CR>')
+vim.keymap.set('n', '<leader>kn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+vim.keymap.set('n', '<leader>kr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>')
+vim.keymap.set('n', '<leader>ks', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+vim.keymap.set('n', '<leader>kt', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>')
+vim.keymap.set('n', '<leader>kK', '<cmd>lua vim.lsp.buf.hover()<CR>')
+vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>')
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+
 -- Jump to vim config
 vim.keymap.set('n', '<leader>ve', ':vsp $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>vs', ':source $MYVIMRC<CR>')
