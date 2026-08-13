@@ -1,5 +1,6 @@
 -- Configuration for language server support.
 -- Setup lspconfig.
+local utils = require('utils')
 local nvim_lsp = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_configs = require("lspconfig.configs")
@@ -12,7 +13,7 @@ local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local in_google3 = string.find(vim.loop.cwd(), "google3")
+  local in_google3 = utils.in_google3()
   if in_google3 then
     -- For Google only, override formatter since LSP support is poor
     buf_set_keymap('n', '<leader>=b', '<cmd>FormatCode<CR>', opts)
@@ -94,19 +95,27 @@ nvim_lsp.rust_analyzer.setup {
   }
 }
 
+local ciderlsp_settings = {
+  'enable_placeholders',
+  'enable:inlay_hints_kotlin_show_local_variable_types',
+}
+
 lsp_configs.ciderlsp = {
-  default_config = {
-    cmd = { '/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp', '--noforward_sync_responses' },
-    filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textpb", "go", "python", "bzl", "typescript" },
-    offset_encoding = 'utf-8',
-    root_dir = nvim_lsp.util.root_pattern('.citc'),
-    settings = {},
-  }
+    default_config = {
+        cmd = {
+          '/google/bin/releases/cider/ciderlsp/ciderlsp',
+          '--tooltag=nvim-lsp',
+          '--noforward_sync_responses',
+          '--request_options=' .. table.concat(ciderlsp_settings, ','),
+        },
+        filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textpb", "go", "python", "bzl", "typescript" },
+        offset_encoding = 'utf-8',
+        root_dir = nvim_lsp.util.root_pattern('.citc'),
+    }
 }
-lsp_configs.ciderlsp.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
+
+nvim_lsp.ciderlsp.setup {}
+
 
 -- Only try to configure lua lsp if it is installed in the right location
 local lua_ls_root_path = vim.fn.expand('~/.local/lua-language-server')
@@ -159,7 +168,7 @@ local configlessLSPs = {
 for lspconfig_name, lsp_binary in pairs(configlessLSPs)
 do
   -- Skip clangd if in google3
-  local skip = lspconfig_name == "clangd" and string.find(vim.loop.cwd(), "google3")
+  local skip = lspconfig_name == "clangd" and utils.in_google3()
   if not skip then
     if vim.fn.executable(lsp_binary) == 1 then
       nvim_lsp[lspconfig_name].setup {

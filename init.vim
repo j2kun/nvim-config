@@ -6,14 +6,16 @@ require('plugins')
 require('theme')
 require('settings')
 
+local utils = require('utils')
+
+require('gitgutter')
+require('treesitter')
 require('autocommands')
 require('cmp_config')
-require('gitgutter')
 require('language_server')
 require('mappings')
 require('snippets')
 require('telescope_config')
-require('treesitter')
 require('formatters')
 
 EOF

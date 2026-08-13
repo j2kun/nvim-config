@@ -5,6 +5,11 @@ local tsc = require("telescope")
 -- Provide custom filepath mappings that navigate to related files
 -- from the current buffer's filepath
 require('telescope-alternate').setup({
+  defaults = {
+    file_ignore_patterns = {
+      "/google/src/cloud/.*",
+    }
+  },
   mappings = {
     {
       pattern = '**/(.*).h',

@@ -1,5 +1,10 @@
 -- Configs specific to airblade/vim-gitgutter
 
+local utils = require('utils')
+if utils.in_google3() then
+  return
+end
+
 -- stage and undo the hunk under the cursor
 vim.keymap.set('n', '<Leader>ha', '<Plug>(GitGutterStageHunk)')
 vim.keymap.set('n', '<Leader>hr', '<Plug>(GitGutterUndoHunk)')

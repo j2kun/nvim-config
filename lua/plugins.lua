@@ -1,3 +1,4 @@
+local utils = require('utils')
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', vim.fn.stdpath("data") .. '/plugged')
@@ -9,7 +10,6 @@ Plug('folke/tokyonight.nvim', { ['branch'] = 'main' })
 Plug 'ahmedkhalf/project.nvim'
 
 Plug 'airblade/vim-gitgutter'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'lervag/vimtex'
 
 -- Set up treesitter (see treesitter.lua)
@@ -17,10 +17,13 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 -- Plugins for treesitter
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
+-- Swapping text objects using treesitter nodes
+Plug 'mizlan/iswap.nvim'
 Plug 'mechatroner/rainbow_csv'
-Plug 'overcache/NeoSolarized'
 Plug 'preservim/nerdtree'
 Plug 'rust-lang/rust.vim'
+
+Plug 'overcache/NeoSolarized'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -66,9 +69,6 @@ Plug 'otavioschwanck/telescope-alternate.nvim'
 -- Code outline
 Plug 'simrat39/symbols-outline.nvim'
 
--- Swapping text objects using treesitter nodes
-Plug 'mizlan/iswap.nvim'
-
 -- Experimental changes to UI for cmdline and notifications
 Plug 'MunifTanjim/nui.nvim'
 Plug 'rcarriga/nvim-notify'
@@ -78,7 +78,6 @@ Plug 'smjonas/inc-rename.nvim'
 -- On first usage, run
 -- :Copilot setup
 -- Plug 'github/copilot.vim'
-Plug 'MeanderingProgrammer/render-markdown.nvim'
 Plug 'sso://user/idk/cider-agent.nvim'
 
 vim.call('plug#end')
@@ -90,17 +89,6 @@ vim.call('plug#end')
 require('symbols-outline').setup()
 require('inc_rename').setup()
 require('textcase').setup()
-require('render-markdown').setup({
-  overrides = {
-    buftype = {
-      nofile = {
-        anti_conceal = { enabled = false },
-        code = { left_pad = 0, right_pad = 0 },
-        debounce = 0,
-      },
-    },
-  },
-})
 
 require("project_nvim").setup {
   show_hidden = true,
@@ -108,6 +96,10 @@ require("project_nvim").setup {
   patterns = { ".git", ".hg", "Makefile", "package.json", "venv", "WORKSPACE" },
   -- For whatever reason, texlab has bad root finding behavior
   ignore_lsp = { "texlab" },
+  exclude_dirs = {
+    "/google/src/cloud/*",
+    "~/.local/*"
+  },
 }
 
 -- if this works out, move it to a settings or UI.lua file
